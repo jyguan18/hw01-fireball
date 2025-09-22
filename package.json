@@ -1,7 +1,10 @@
 {
+  "homepage": "https://jyguan18.github.io/hw01-fireball/",
   "scripts": {
     "start": "webpack-dev-server --no-hot --live-reload",
-    "build": "webpack"
+    "build": "webpack",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@types/dat.gui": "^0.7.13",
@@ -16,6 +19,7 @@
   "dependencies": {
     "3d-view-controls": "^2.2.2",
     "dat.gui": "^0.7.9",
+    "gh-pages": "^6.3.0",
     "gl-matrix": "^3.3.0",
     "stats-js": "^1.0.1",
     "stats.js": "^0.17.0"
