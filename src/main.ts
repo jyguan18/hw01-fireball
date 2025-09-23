@@ -14,11 +14,12 @@ import ShaderProgram, { Shader } from "./rendering/gl/ShaderProgram";
 const controls = {
   tesselations: 7,
   "Load Scene": loadScene, // A function pointer, essentially
+  "Reload Scene": reloadScene,
   "Color Picker": [0, 0, 0],
   Frequency: 2,
-  Amplitude: 0.2,
+  Amplitude: 0.4,
   "Enable Time": true,
-  "Enable Background": true,
+  Background: true,
 };
 
 let icosphere: Icosphere;
@@ -44,6 +45,14 @@ function loadScene() {
   // cube.create();
 }
 
+function reloadScene() {
+  controls["Color Picker"] = [0, 0, 0];
+  controls.Frequency = 2;
+  controls.Amplitude = 0.4;
+  controls["Enable Time"] = true;
+  controls.Background = true;
+}
+
 function main() {
   // Initial display for framerate
   const stats = Stats();
@@ -57,11 +66,12 @@ function main() {
   const gui = new DAT.GUI();
   gui.add(controls, "tesselations", 0, 8).step(1);
   gui.add(controls, "Load Scene");
+  gui.add(controls, "Reload Scene");
   gui.addColor(controls, "Color Picker");
   gui.add(controls, "Frequency");
   gui.add(controls, "Amplitude");
   gui.add(controls, "Enable Time");
-  gui.add(controls, "Enable Background");
+  gui.add(controls, "Background");
 
   // get canvas and webgl context
   const canvas = <HTMLCanvasElement>document.getElementById("canvas");
@@ -115,7 +125,7 @@ function main() {
       vec3.fromValues(255, 255, 255)
     );
 
-    if (controls["Enable Background"]) {
+    if (controls.Background) {
       gl.depthMask(false);
       renderer.render(
         camera,
